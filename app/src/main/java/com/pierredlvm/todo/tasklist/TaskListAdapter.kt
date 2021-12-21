@@ -1,5 +1,6 @@
 package com.pierredlvm.todo.tasklist
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,19 +26,21 @@ object TasksDiffCallback : DiffUtil.ItemCallback<Task>()
 
     override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
 
-        return (oldItem.title == newItem.title && oldItem.description == newItem.description);
+        return oldItem == newItem;
     }
 
 }
 
-/*interface TaskListListener
+interface TaskListListener
 {
     fun onClickDelete(task:Task);
-}*/
+    fun onClickEdit(task:Task);
+}
 
-class TaskListAdapter() : ListAdapter<Task,TaskListAdapter.TaskViewHolder>(TasksDiffCallback)
+class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task,TaskListAdapter.TaskViewHolder>(TasksDiffCallback)
 {
     var onClickDelete: ((Task) -> Unit)? = null
+    var onClickEdit: ((Task) -> Unit)? = null
     private lateinit var binding: ItemTaskBinding;
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -46,7 +49,16 @@ class TaskListAdapter() : ListAdapter<Task,TaskListAdapter.TaskViewHolder>(Tasks
             val textView = binding.taskTitle;
 
             textView.setText(task.title+"\n"+task.description);
-            binding.deleteButton.setOnClickListener { onClickDelete?.invoke(task) };
+            binding.deleteButton.setOnClickListener { //
+                // onClickDelete?.invoke(task)
+                //
+                listener.onClickDelete(task);
+                };
+
+            binding.editButton.setOnClickListener {
+                //onClickEdit?.invoke(task);
+                listener.onClickEdit(task);
+            }
         }
     }
 
