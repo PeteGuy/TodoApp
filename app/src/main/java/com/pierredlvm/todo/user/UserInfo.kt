@@ -1,4 +1,4 @@
-package com.pierredlvm.todo.network
+package com.pierredlvm.todo.user
 
 import kotlinx.serialization.SerialName;
 import kotlinx.serialization.Serializable;
@@ -11,5 +11,7 @@ val email: String,
 @SerialName("firstname")
 val firstName: String,
 @SerialName("lastname")
-val lastName: String
+val lastName: String,
+@SerialName("avatar")
+val avatar: String?
 )

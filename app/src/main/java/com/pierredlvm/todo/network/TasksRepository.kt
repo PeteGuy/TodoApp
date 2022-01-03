@@ -37,16 +37,7 @@ class TasksRepository {
         if(taskReponse.isSuccessful)
         {
             return taskReponse.body();
-            /*val updatedTask = taskReponse.body()
-            if(updatedTask != null)
-            {
-                val oldTask = taskList.value.firstOrNull { it.id == updatedTask.id }
-                if (oldTask != null)
-                {
-                    _taskList.value = taskList.value - oldTask + updatedTask
-                }
 
-            }*/
 
         }
         else
