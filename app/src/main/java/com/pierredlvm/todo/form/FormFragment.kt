@@ -41,28 +41,18 @@ class FormFragment : Fragment() {
         binding = FragmentFormBinding.inflate(inflater);
         var view = binding.root;
 
-        //setContentView(binding.root);
+
 
         var vButton = binding.validationButton;
-
-        //var sentTask =intent?.getSerializableExtra("sentTask") as? Task;
+        setNavigationResult(null,"newTask");
         var sentTask = model.getTaskToEdit();
         var test = getNavigationResult<String>("test");
 
-        if(test != null)
-        {
-            Log.e("foeinz",test);
-        }
 
 
-        //test.observe(viewLifecycleOwner){ booleanValue-> doSomething(booleanValue)
 
 
-        //savedInstanceState?.remove("sentTask")
-        if(sentTask == null)
-        {
-            Log.e("oifieznofneiz","ofhoez");
-        }
+
         binding.taskTitle.setText(sentTask?.title);
         binding.taskDescription.setText(sentTask?.description);
 
@@ -70,10 +60,8 @@ class FormFragment : Fragment() {
 
         vButton.setOnClickListener {
             val newTask =Task(id = id, title = binding.taskTitle.text.toString(),description = binding.taskDescription.text.toString())
-            //intent.putExtra("task",newTask);
             setNavigationResult(newTask,"newTask");
 
-            //setResult(RESULT_OK, intent)
             findNavController().popBackStack();
         }
 

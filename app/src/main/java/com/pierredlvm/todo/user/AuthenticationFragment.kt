@@ -10,7 +10,6 @@ import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.pierredlvm.todo.R
-import com.pierredlvm.todo.databinding.ActivityAuthenticationBinding
 import com.pierredlvm.todo.databinding.FragmentAuthenticationBinding
 
 
@@ -32,7 +31,7 @@ class AuthenticationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var view = binding.root//inflater.inflate(R.layout.fragment_authentication,container,false)
+        var view = binding.root
         binding.logIn.setOnClickListener {
 
             findNavController().navigate(R.id.action_authenticationFragment_to_loginFragment)

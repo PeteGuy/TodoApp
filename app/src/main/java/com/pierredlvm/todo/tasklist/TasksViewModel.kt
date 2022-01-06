@@ -44,9 +44,9 @@ class TasksViewModel : ViewModel() {
         viewModelScope.launch {
             if (repository.createTask(task)) {
 
-                if (task != null) {
-                    _taskList.value = _taskList.value + task;
-                }
+
+                _taskList.value = _taskList.value + task;
+
             }
         }
     }

@@ -8,10 +8,12 @@
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/activity_user_info.xml" value="0.33" />
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_authentication.xml" value="0.33" />
+        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_form.xml" value="0.2015625" />
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_login.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_signup.xml" value="0.20364583333333333" />
-        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_task_list.xml" value="0.22" />
-        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/item_task.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_task_list.xml" value="0.33" />
+        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/fragment_user_info.xml" value="0.2015625" />
+        <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/item_task.xml" value="0.33" />
         <entry key="..\:/Users/pierr/AndroidStudioProjects/TodoPierreDLVM/app/src/main/res/layout/task_activity.xml" value="0.403125" />
       </map>
     </option>

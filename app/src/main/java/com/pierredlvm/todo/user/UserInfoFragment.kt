@@ -10,12 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.activity.result.registerForActivityResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -24,7 +29,7 @@ import com.google.modernstorage.mediastore.FileType
 import com.google.modernstorage.mediastore.MediaStoreRepository
 import com.google.modernstorage.mediastore.SharedPrimary
 import com.pierredlvm.todo.R
-import com.pierredlvm.todo.databinding.ActivityUserInfoBinding
+import com.pierredlvm.todo.databinding.FragmentUserInfoBinding
 import com.pierredlvm.todo.network.Api
 import com.pierredlvm.todo.tasklist.TasksViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -35,10 +40,10 @@ import java.io.File
 import java.util.*
 
 
-class UserInfoActivity : AppCompatActivity() {
+class UserInfoFragment : Fragment() {
     private val viewModel: UserInfoViewModel by viewModels()
 
-    private lateinit var binding: ActivityUserInfoBinding;
+    private lateinit var binding: FragmentUserInfoBinding;
     private val cameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){ accepted ->
             if (accepted)
@@ -49,7 +54,7 @@ class UserInfoActivity : AppCompatActivity() {
                 // afficher une explication
         }
 
-   val mediaStore by lazy { MediaStoreRepository(this) }
+   val mediaStore by lazy { MediaStoreRepository(Api.appContext) }
 
     // stocker une uri pour sauvegarder l'image:
     private lateinit var photoUri: Uri
@@ -64,7 +69,6 @@ class UserInfoActivity : AppCompatActivity() {
         if(uri!=null)
         {
             photoUri = uri;
-            //binding.imageView.load(photoUri)
         }
         handleImage();
 
@@ -73,7 +77,7 @@ class UserInfoActivity : AppCompatActivity() {
     private fun launchCameraWithPermission() {
 
         val camPermission = Manifest.permission.CAMERA
-        val permissionStatus = checkSelfPermission(camPermission)
+        val permissionStatus = Api.appContext.checkSelfPermission(camPermission);
         val isAlreadyAccepted = permissionStatus == PackageManager.PERMISSION_GRANTED
         val isExplanationNeeded = shouldShowRequestPermissionRationale(camPermission)
         when {
@@ -85,7 +89,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun showExplanation() {
         // ici on construit une pop-up système (Dialog) pour expliquer la nécessité de la demande de permission
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(Api.appContext)
             .setMessage("🥺 On a besoin de la caméra, vraiment! 👉👈")
             .setPositiveButton("Bon, ok") { _, _ -> /* ouvrir les paramètres de l'app */ }
             .setNegativeButton("Nope") { dialog, _ -> dialog.dismiss() }
@@ -96,7 +100,7 @@ class UserInfoActivity : AppCompatActivity() {
         // Cet intent permet d'ouvrir les paramètres de l'app (pour modifier les permissions déjà refusées par ex)
         val intent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-            Uri.fromParts("package", packageName, null)
+            Uri.fromParts("package", Api.appContext.packageName, null)
         )
         // ici pas besoin de vérifier avant car on vise un écran système:
         startActivity(intent)
@@ -123,23 +127,27 @@ class UserInfoActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        super.onCreate(savedInstanceState)
-        binding = ActivityUserInfoBinding.inflate(layoutInflater);
+
+
+        binding = FragmentUserInfoBinding.inflate(layoutInflater);
 
         if(mediaStore.canReadSharedEntries()) {
             Log.e("error media storage","Read an image created by another app")
         }
 
-
+        val view = binding.root;
 
 
         var camButton = binding.takePictureButton;
         camButton.setOnClickListener {
             launchCameraWithPermission()
         }
-        setContentView(binding.root)
         binding.uploadImageButton.setOnClickListener {
             launchGallery()
         }
@@ -170,7 +178,7 @@ class UserInfoActivity : AppCompatActivity() {
 
         }
 
-
+        return view;
 
     }
 
@@ -179,7 +187,7 @@ class UserInfoActivity : AppCompatActivity() {
         return MultipartBody.Part.createFormData(
             name = "avatar",
             filename = "temp.jpeg",
-            body = contentResolver.openInputStream(uri)!!.readBytes().toRequestBody()
+            body = Api.appContext.contentResolver.openInputStream(uri)!!.readBytes().toRequestBody()
 
         )
     }

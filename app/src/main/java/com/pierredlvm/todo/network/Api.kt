@@ -17,7 +17,6 @@ object Api {
 
     // constantes qui serviront à faire les requêtes
     private const val BASE_URL = "https://android-tasks-api.herokuapp.com/api/"
-    //private const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1NDksImV4cCI6MTY3MDMzMjgxMH0.nIeNd3VvNPqf4er_t5lsjd4A8vrBurF72mOdkJAaWSA"
 
     fun setUpContext(context: Context) {
         appContext = context

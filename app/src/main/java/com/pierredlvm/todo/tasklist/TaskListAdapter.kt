@@ -50,13 +50,11 @@ class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task,TaskLis
 
             textView.setText(task.title+"\n"+task.description);
             binding.deleteButton.setOnClickListener { //
-                // onClickDelete?.invoke(task)
-                //
+
                 listener.onClickDelete(task);
                 };
 
             binding.editButton.setOnClickListener {
-                //onClickEdit?.invoke(task);
                 listener.onClickEdit(task);
             }
         }
@@ -64,7 +62,6 @@ class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task,TaskLis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
 
-        //val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false);
         binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context));
         val itemView = binding.root;
         val taskViewHolder = TaskViewHolder(itemView);
@@ -78,7 +75,6 @@ class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task,TaskLis
 
 
 
-       // binding.deleteButton.setOnClickListener { onClickDelete?.invoke(currentList[position]) };
     }
 
 
