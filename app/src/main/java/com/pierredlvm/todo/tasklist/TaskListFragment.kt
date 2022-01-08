@@ -226,17 +226,26 @@ class TaskListFragment : Fragment()
         lifecycleScope.launch()
         {
             val userInfo = Api.userWebService.getInfo().body()!!
-            binding.userInfo.text = "${userInfo.firstName} ${userInfo.lastName}";
-            avatar.load(userInfo.avatar){
-                // affiche une image par défaut en cas d'erreur:
-                error(R.drawable.ic_launcher_background)
+            binding.userInfo.text = "${userInfo.firstName}\n ${userInfo.lastName}";
+            //binding.userInfo.text = "Monsieur\nTest";
+            if(userInfo.avatar != null)
+            {
+                binding.avatarImage.load(userInfo.avatar){
+                    // affiche une image par défaut en cas d'erreur:
+                    error(R.drawable.ic_launcher_background)
+                }
             }
+            else
+            {
+                binding.avatarImage.load(R.drawable.ic_launcher_background);
+            }
+
             viewModel.loadTasks();
         }
 
-        avatar = binding.avatarImage;
 
-        avatar.setOnClickListener {
+
+        binding.avatarImage.setOnClickListener {
             findNavController().navigate(R.id.action_taskListFragment_to_userInfoFragment)
         }
 

@@ -18,11 +18,11 @@
 
     <TextView
         android:id="@+id/userInfo"
-        android:layout_width="102dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="55dp"
+        android:layout_width="105dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="TextView"
+        android:text="Default"
         android:textAlignment="center"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"
@@ -44,8 +44,8 @@
         android:id="@+id/avatarImage"
         android:layout_width="69dp"
         android:layout_height="68dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
